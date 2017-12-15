@@ -5,6 +5,9 @@
  */
 package examen2_angelrisso_11641026;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author HP_AMD_64
@@ -32,7 +35,7 @@ public class NASA extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_astro = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jt_naves = new javax.swing.JTable();
+        jt_planetas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         bt_planetario = new javax.swing.JButton();
         tf_nombre = new javax.swing.JTextField();
@@ -47,7 +50,25 @@ public class NASA extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        tf_nombreA = new javax.swing.JTextField();
+        tf_nacionalidad = new javax.swing.JTextField();
+        tf_sexo = new javax.swing.JTextField();
+        sp_exp = new javax.swing.JSpinner();
+        sp_sueldo = new javax.swing.JSpinner();
+        sp_peso = new javax.swing.JSpinner();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        bt_Astro = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        cb_planetasDisp = new javax.swing.JComboBox<>();
+        cb_Astro = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,14 +84,21 @@ public class NASA extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(jt_astro);
 
-        jt_naves.setModel(new javax.swing.table.DefaultTableModel(
+        jt_planetas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -81,23 +109,33 @@ public class NASA extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Float.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Float.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane2.setViewportView(jt_naves);
+        jScrollPane2.setViewportView(jt_planetas);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +156,11 @@ public class NASA extends javax.swing.JFrame {
             }
         });
 
-        sp_distancia.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp_distancia.setModel(new javax.swing.SpinnerNumberModel(1.0f, 1.0f, null, 1.0f));
 
         cbox_anillos.setText("anillos");
 
-        sp_temperatura.setModel(new javax.swing.SpinnerNumberModel());
+        sp_temperatura.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
 
         jLabel1.setText("Nombre del Planeta");
 
@@ -196,15 +234,130 @@ public class NASA extends javax.swing.JFrame {
 
         Nasa.addTab("Planetas", jPanel1);
 
+        jLabel7.setText("Nombre");
+
+        jLabel8.setText("Nacionalidad");
+
+        jLabel9.setText("Sueldo");
+
+        jLabel10.setText("Experiencia");
+
+        jLabel11.setText("Sexo");
+
+        jLabel12.setText("Peso");
+
+        sp_exp.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        sp_sueldo.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 1.0f));
+
+        sp_peso.setModel(new javax.swing.SpinnerNumberModel(0.0f, 0.0f, null, 1.0f));
+
+        jLabel13.setText("Mil");
+
+        jLabel14.setText("años");
+
+        jLabel15.setText("KG");
+
+        bt_Astro.setText("Crear Astronauta");
+        bt_Astro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_AstroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel7)
+                        .addGap(49, 49, 49)
+                        .addComponent(tf_nombreA, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel8)
+                        .addGap(49, 49, 49)
+                        .addComponent(tf_nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jLabel9)
+                        .addGap(79, 79, 79)
+                        .addComponent(sp_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel10)
+                        .addGap(79, 79, 79)
+                        .addComponent(sp_exp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(jLabel11)
+                        .addGap(49, 49, 49)
+                        .addComponent(tf_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bt_Astro, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(79, 79, 79)
+                                .addComponent(sp_peso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7))
+                    .addComponent(tf_nombreA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel8))
+                    .addComponent(tf_nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(sp_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel13)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(sp_exp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel11))
+                    .addComponent(tf_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(sp_peso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(bt_Astro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
 
         Nasa.addTab("Astronautas", jPanel2);
@@ -213,11 +366,21 @@ public class NASA extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(291, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cb_planetasDisp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_Astro, 0, 120, Short.MAX_VALUE))
+                .addGap(157, 157, 157))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(cb_planetasDisp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cb_Astro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(334, Short.MAX_VALUE))
         );
 
         Nasa.addTab("Naves", jPanel3);
@@ -256,19 +419,79 @@ public class NASA extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_planetarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_planetarioActionPerformed
-     String nombre=" ";
-     float temperatura=0;
-     boolean anillos=false;
-     String superficie=" ";
-     float distancia=0;
-     nombre=tf_nombre.getText();
-     temperatura=(float)sp_temperatura.getValue();
+        String nombre = " ";
+        float temperatura = 0;
+        boolean anillos = false;
+        String superficie = " ";
+        float distancia = 0;
+        nombre = tf_nombre.getText();
+        temperatura = (float) sp_temperatura.getValue();
+        if (cbox_anillos.isSelected()) {
+            anillos = true;
+        } else {
+            anillos = false;
+        }
+        superficie = tf_superficie.getText();
+        distancia = (float) sp_distancia.getValue();
+        Planeta p
+                = new Planeta(nombre, temperatura, anillos, superficie, distancia);
+
+        DefaultComboBoxModel mod
+                = (DefaultComboBoxModel) cb_planetasDisp.getModel();
+        mod.addElement(p);
+        cb_planetasDisp.setModel(mod);
+
+        DefaultTableModel tab = (DefaultTableModel) jt_planetas.getModel();
+        Object row[]
+                = new Object[]{nombre, temperatura, anillos, superficie, distancia};
+        tab.addRow(row);
+
+        tf_nombre.setText("");
+        sp_temperatura.setValue(0);
+        cbox_anillos.setSelected(false);
+        tf_superficie.setText("");
+        sp_distancia.setValue(1);
     }//GEN-LAST:event_bt_planetarioActionPerformed
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    private void bt_AstroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_AstroActionPerformed
+        String nombre = " ";
+        String nacionalidad = " ";
+        float sueldo = 0;
+        int experiencia = 0;
+        String sexo = " ";
+        float peso = 0;
+        nombre = tf_nombreA.getText();
+        nacionalidad = tf_nacionalidad.getText();
+        sueldo = (float) sp_sueldo.getValue();
+        experiencia=(int)sp_exp.getValue();
+        sexo=tf_sexo.getText();
+        peso=(float)sp_peso.getValue();
+        Astronauta a
+                = new Astronauta(nombre, nacionalidad, sueldo, experiencia, sexo, peso);
+        DefaultComboBoxModel mod
+                = (DefaultComboBoxModel) cb_Astro.getModel();
+        mod.addElement(a);
+        cb_Astro.setModel(mod);
+        DefaultTableModel tab = 
+                (DefaultTableModel) jt_astro.getModel();
+        Object row[]=
+                new Object[]{nombre, nacionalidad, sueldo, experiencia, sexo, peso};
+        tab.addRow(row);
+        
+        tf_nombreA.setText("");
+        tf_nacionalidad.setText("");
+        sp_sueldo.setValue(0);
+        tf_sexo.setText("");
+        sp_exp.setValue(0);
+        sp_peso.setValue(0);
+        
+        
+    }//GEN-LAST:event_bt_AstroActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -276,31 +499,27 @@ public static void main(String args[]) {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(NASA.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(NASA.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(NASA.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NASA.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -314,14 +533,26 @@ public static void main(String args[]) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Nasa;
+    private javax.swing.JButton bt_Astro;
     private javax.swing.JButton bt_planetario;
+    private javax.swing.JComboBox<String> cb_Astro;
+    private javax.swing.JComboBox<String> cb_planetasDisp;
     private javax.swing.JCheckBox cbox_anillos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -330,10 +561,16 @@ public static void main(String args[]) {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jt_astro;
-    private javax.swing.JTable jt_naves;
+    private javax.swing.JTable jt_planetas;
     private javax.swing.JSpinner sp_distancia;
+    private javax.swing.JSpinner sp_exp;
+    private javax.swing.JSpinner sp_peso;
+    private javax.swing.JSpinner sp_sueldo;
     private javax.swing.JSpinner sp_temperatura;
+    private javax.swing.JTextField tf_nacionalidad;
     private javax.swing.JTextField tf_nombre;
+    private javax.swing.JTextField tf_nombreA;
+    private javax.swing.JTextField tf_sexo;
     private javax.swing.JTextField tf_superficie;
     // End of variables declaration//GEN-END:variables
 }
