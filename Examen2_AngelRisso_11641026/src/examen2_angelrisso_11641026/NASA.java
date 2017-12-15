@@ -28,7 +28,7 @@ public class NASA extends javax.swing.JFrame {
         }
     }
     int ban = 0;
-    ArrayList <Planeta>planetas=new ArrayList();
+    ArrayList<Planeta> planetas = new ArrayList();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -843,17 +843,30 @@ public class NASA extends javax.swing.JFrame {
         distancia = (float) sp_distancia1.getValue();
         Planeta p
                 = new Planeta(nombre, temperatura, anillos, superficie, distancia);
-        
-        DefaultComboBoxModel mod
-                = (DefaultComboBoxModel) cb_planetasDisp.getModel();
-        mod.addElement(p);
-        cb_planetasDisp.setModel(mod);
+        planetas.add(p);
 
-        DefaultTableModel tab = (DefaultTableModel) jt_planetas.getModel();
-        Object row[]
-                = new Object[]{nombre, temperatura, anillos, superficie, distancia};
-        tab.addRow(row);
     }//GEN-LAST:event_bt_modiPlanetaActionPerformed
+    
+    public void cosa_planetas() {
+    DefaultComboBoxModel mod=
+            (DefaultComboBoxModel)cb_planetasDisp.getModel();
+    mod.removeAllElements();
+    DefaultTableModel modt=
+            (DefaultTableModel)jt_planetas.getModel();
+        for (int i = 0; i < modt.getRowCount(); i++) {
+            modt.removeRow(i);
+        }
+        for (Planeta p : planetas) {
+            mod.addElement(p);
+            
+        }
+        cb_planetasDisp.setModel(mod);
+        for (Planeta p : planetas) {
+            Object row[]=
+                    new Object[]{p.getNombre(),p.getTemperatura(),p.isAnillos(),p.getSuperficie(),p.getDistancia()} ;
+            
+        }
+    }
 
     /**
      * @param args the command line arguments
