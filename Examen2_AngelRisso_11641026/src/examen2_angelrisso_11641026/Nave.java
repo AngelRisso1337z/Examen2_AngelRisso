@@ -51,6 +51,6 @@ public abstract class Nave {
     public String toString() {
         return numserie+" ";
     }
-    public abstract void calcularTiempo();
+    public abstract float[] calcularTiempo();
     
 }

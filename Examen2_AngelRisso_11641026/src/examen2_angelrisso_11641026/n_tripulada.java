@@ -11,9 +11,10 @@ import java.util.ArrayList;
  *
  * @author HP_AMD_64
  */
-public class n_tripulada extends Nave{
+public class n_tripulada extends Nave {
+
     private String origen;
-    private ArrayList<Astronauta> tripulacion=new ArrayList();
+    private ArrayList<Astronauta> tripulacion = new ArrayList();
 
     public n_tripulada() {
     }
@@ -38,18 +39,26 @@ public class n_tripulada extends Nave{
     public void setTripulacion(ArrayList<Astronauta> tripulacion) {
         this.tripulacion = tripulacion;
     }
+
     public void setTripulacion(Astronauta a) {
         this.tripulacion.add(a);
     }
 
     @Override
     public String toString() {
-        return super.numserie+" ";
+        return super.numserie + " ";
     }
-    
+
     @Override
-    public void calcularTiempo() {
-       
+    public float[] calcularTiempo() {
+        float vuelta[] = new float[1];
+        float peso, ida, regreso;
+        float distancia = planeta.getDistancia();
+        for (Astronauta as : tripulacion) {
+            peso = as.getPeso();
+        }
+
+        return vuelta;
     }
-    
+
 }

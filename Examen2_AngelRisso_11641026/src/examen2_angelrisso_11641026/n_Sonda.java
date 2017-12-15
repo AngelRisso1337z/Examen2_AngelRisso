@@ -45,11 +45,17 @@ public class n_Sonda extends Nave {
     }
 
     @Override
-    public void calcularTiempo() {
-        int[] vuelta;
-        int ida;
-        int regreso;
-        
+    public float[] calcularTiempo() {
+        float[] vuelta=new float[1];
+        float ida;
+        float regreso;
+        float distancia = planeta.getDistancia();
+        float rapidez = velocidad;
+        ida = (distancia / rapidez);
+        regreso = (9.8f * ida);
+        vuelta[0]=ida;
+        vuelta[1]=regreso;
+        return vuelta;
     }
 
 }
