@@ -52,12 +52,16 @@ public class n_tripulada extends Nave {
     @Override
     public float[] calcularTiempo() {
         float vuelta[] = new float[1];
-        float peso, ida, regreso;
+        float peso=0, ida, regreso;
         float distancia = planeta.getDistancia();
         for (Astronauta as : tripulacion) {
-            peso = as.getPeso();
+            peso += as.getPeso();
         }
-
+        peso=peso*peso;
+        ida=(distancia/(velocidad*(peso/100)));
+        regreso=(distancia/(velocidad*(peso/100)));
+        vuelta[0]=ida;
+        vuelta[1]=regreso;
         return vuelta;
     }
 
