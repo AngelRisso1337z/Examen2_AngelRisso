@@ -29,6 +29,7 @@ public class NASA extends javax.swing.JFrame {
     }
     int ban = 0;
     ArrayList<Planeta> planetas = new ArrayList();
+    ArrayList<Astronauta> astronautas = new ArrayList();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +57,7 @@ public class NASA extends javax.swing.JFrame {
         cbox_anillos1 = new javax.swing.JCheckBox();
         sp_temperatura1 = new javax.swing.JSpinner();
         bt_modiPlaneta = new javax.swing.JButton();
+        jd_modAstro = new javax.swing.JDialog();
         Nasa = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -213,6 +215,17 @@ public class NASA extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
+        javax.swing.GroupLayout jd_modAstroLayout = new javax.swing.GroupLayout(jd_modAstro.getContentPane());
+        jd_modAstro.getContentPane().setLayout(jd_modAstroLayout);
+        jd_modAstroLayout.setHorizontalGroup(
+            jd_modAstroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jd_modAstroLayout.setVerticalGroup(
+            jd_modAstroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jt_astro.setModel(new javax.swing.table.DefaultTableModel(
@@ -236,6 +249,11 @@ public class NASA extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jt_astro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_astroMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jt_astro);
@@ -802,9 +820,15 @@ public class NASA extends javax.swing.JFrame {
 
     private void jmi_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_modificarActionPerformed
         if (ban == 1) {
-
+            jd_modPlaneta.pack();
+            jd_modPlaneta.setModal(true);
+            jd_modPlaneta.setLocationRelativeTo(this);
+            jd_modPlaneta.setVisible(true);
         } else {
-
+            jd_modAstro.pack();
+            jd_modAstro.setModal(true);
+            jd_modAstro.setLocationRelativeTo(this);
+            jd_modAstro.setVisible(true);
         }
     }//GEN-LAST:event_jmi_modificarActionPerformed
 
@@ -824,9 +848,8 @@ public class NASA extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_planetasMouseClicked
 
     private void bt_modiPlanetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_modiPlanetaActionPerformed
+
         int sel = jt_planetas.getSelectedRow();
-        jt_planetas.remove(sel);
-        cb_planetasDisp.removeAll();
         String nombre = "";
         float temperatura = 0;
         boolean anillos = false;
@@ -843,29 +866,60 @@ public class NASA extends javax.swing.JFrame {
         distancia = (float) sp_distancia1.getValue();
         Planeta p
                 = new Planeta(nombre, temperatura, anillos, superficie, distancia);
-        planetas.add(p);
+        planetas.set(sel, p);
+        cosa_planetas();
 
     }//GEN-LAST:event_bt_modiPlanetaActionPerformed
-    
+
+    private void jt_astroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_astroMouseClicked
+        if (evt.isMetaDown()) {
+            pp_tablas.show(evt.getComponent(), evt.getX(), evt.getY());
+            ban = 0;
+        }
+    }//GEN-LAST:event_jt_astroMouseClicked
+
     public void cosa_planetas() {
-    DefaultComboBoxModel mod=
-            (DefaultComboBoxModel)cb_planetasDisp.getModel();
-    mod.removeAllElements();
-    DefaultTableModel modt=
-            (DefaultTableModel)jt_planetas.getModel();
+        DefaultComboBoxModel mod
+                = (DefaultComboBoxModel) cb_planetasDisp.getModel();
+        mod.removeAllElements();
+        DefaultTableModel modt
+                = (DefaultTableModel) jt_planetas.getModel();
         for (int i = 0; i < modt.getRowCount(); i++) {
             modt.removeRow(i);
         }
         for (Planeta p : planetas) {
             mod.addElement(p);
-            
+
         }
         cb_planetasDisp.setModel(mod);
         for (Planeta p : planetas) {
-            Object row[]=
-                    new Object[]{p.getNombre(),p.getTemperatura(),p.isAnillos(),p.getSuperficie(),p.getDistancia()} ;
-            
+            Object row[]
+                    = new Object[]{p.getNombre(), p.getTemperatura(), p.isAnillos(), p.getSuperficie(), p.getDistancia()};
+            modt.addRow(row);
         }
+
+    }
+
+    public void cosa_astronautas() {
+        DefaultComboBoxModel mod
+                = (DefaultComboBoxModel) cb_Astro.getModel();
+        mod.removeAllElements();
+        DefaultTableModel modt
+                = (DefaultTableModel) jt_astro.getModel();
+        for (int i = 0; i < modt.getRowCount(); i++) {
+            modt.removeRow(i);
+        }
+        for (Astronauta p : astronautas) {
+            mod.addElement(p);
+
+        }
+        cb_planetasDisp.setModel(mod);
+        for (Astronauta p : astronautas) {
+            Object row[]
+                    = new Object[]{p.getNombre(), p.getNacionalidad(), p.getSueldo(), p.getExperiencia(), p.getPeso()};
+            modt.addRow(row);
+        }
+
     }
 
     /**
@@ -959,6 +1013,7 @@ public class NASA extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JDialog jd_modAstro;
     private javax.swing.JDialog jd_modPlaneta;
     private javax.swing.JMenuItem jmi_eliminar;
     private javax.swing.JMenuItem jmi_modificar;

@@ -72,13 +72,16 @@ public class Expedision extends Thread {
 
     @Override
     public void run() {
-        while (vive) {
-            if (avanti) {
-                try {
-                    
-                } catch (Exception e) {
-                }
-            }
+        try {
+            texto.setText("viajando");
+            Thread.sleep((long) espera_ida);
+            texto.setText("llego al planeta destino");
+            Thread.sleep(800);
+            texto.setText("regresando al la Tierra");
+            Thread.sleep((long)espera_vuelta);
+            texto.setText("ESTAMOS DE VUELTA");
+        } catch (InterruptedException e) {
         }
+        
     }
 }
