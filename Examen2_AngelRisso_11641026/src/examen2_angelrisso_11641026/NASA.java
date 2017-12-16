@@ -130,6 +130,12 @@ public class NASA extends javax.swing.JFrame {
         tf_origen = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        lbl_nave = new javax.swing.JLabel();
+        cb_naves = new javax.swing.JComboBox<>();
+        cb_planetas = new javax.swing.JComboBox<>();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        bt_viaje = new javax.swing.JButton();
 
         jmi_modificar.setText("Modificar");
         jmi_modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -798,15 +804,58 @@ public class NASA extends javax.swing.JFrame {
 
         Nasa.addTab("Naves", jPanel3);
 
+        lbl_nave.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_nave.setText("Nave en espera");
+
+        jLabel39.setText("Planetas a viajar");
+
+        jLabel40.setText("naves disponibles");
+
+        bt_viaje.setText("Realizar expedicion");
+        bt_viaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_viajeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_naves, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel40))
+                        .addGap(142, 142, 142)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel39)
+                            .addComponent(cb_planetas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bt_viaje)
+                            .addComponent(lbl_nave))))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_naves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_planetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(82, 82, 82)
+                .addComponent(bt_viaje)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(lbl_nave)
+                .addGap(164, 164, 164))
         );
 
         Nasa.addTab("Lanzamientos", jPanel4);
@@ -824,7 +873,7 @@ public class NASA extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Nasa)
+                .addComponent(Nasa, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -922,11 +971,19 @@ public class NASA extends javax.swing.JFrame {
     private void bt_crearNaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crearNaveActionPerformed
         int numserie = 0;
         float velocidad = 0;
+        Planeta p;
+        Astronauta astro;
+        String lugar = "";
 
         if (rb_sonda.isSelected()) {
             try {
+                p = (Planeta) cb_planetasDisp.getSelectedItem();
                 numserie = Integer.parseInt(tf_numSerie.getText());
                 velocidad = (float) sp_velocidad.getValue();
+                Nave n = new n_Sonda(lugar, velocidad, numserie, p, velocidad);
+                DefaultComboBoxModel mod=(DefaultComboBoxModel)cb_naves.getModel();
+                
+
             } catch (InputMismatchException e) {
                 JOptionPane.showMessageDialog(this, "Error en input, intente de nuevo");
             } catch (Exception e) {
@@ -936,7 +993,15 @@ public class NASA extends javax.swing.JFrame {
             }
 
         } else {
-
+            try {
+                p = (Planeta) cb_planetasDisp.getSelectedItem();
+                numserie = Integer.parseInt(tf_numSerie.getText());
+                velocidad = (float) sp_velocidad.getValue();
+                lugar = tf_origen.getText();
+                astro = (Astronauta) cb_Astro.getSelectedItem();
+                Nave n=new n_tripulada(lugar, numserie, p, velocidad);
+            } catch (Exception e) {
+            }
         }
     }//GEN-LAST:event_bt_crearNaveActionPerformed
 
@@ -968,9 +1033,9 @@ public class NASA extends javax.swing.JFrame {
             DefaultTableModel modt
                     = (DefaultTableModel) jt_astro.getModel();
 
-            planetas.indexOf(modt.getValueAt(sel, 0));
+            astronautas.indexOf(modt.getValueAt(sel, 0));
             modt.removeRow(sel);
-            planetas.remove(sel);
+            astronautas.remove(sel);
         }
     }//GEN-LAST:event_jmi_eliminarActionPerformed
 
@@ -1056,6 +1121,17 @@ public class NASA extends javax.swing.JFrame {
         sp_peso1.setValue(0);
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bt_viajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_viajeActionPerformed
+        DefaultComboBoxModel mod
+                = (DefaultComboBoxModel) cb_planetas.getModel();
+        DefaultComboBoxModel mod1
+                = (DefaultComboBoxModel) cb_naves.getModel();
+        Nave nav = (Nave) mod1.getSelectedItem();
+        Planeta plan = (Planeta) mod.getSelectedItem();
+        Expedision ex = new Expedision(jLabel1, plan, nav);
+        ex.run();
+    }//GEN-LAST:event_bt_viajeActionPerformed
     public Planeta algo(String nombre) {
         for (Planeta planeta : planetas) {
             if (nombre.equals(planeta.getNombre())) {
@@ -1158,8 +1234,11 @@ public class NASA extends javax.swing.JFrame {
     private javax.swing.JButton bt_crearNave;
     private javax.swing.JButton bt_modiPlaneta;
     private javax.swing.JButton bt_planetario;
+    private javax.swing.JButton bt_viaje;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cb_Astro;
+    private javax.swing.JComboBox<String> cb_naves;
+    private javax.swing.JComboBox<String> cb_planetas;
     private javax.swing.JComboBox<String> cb_planetasDisp;
     private javax.swing.JCheckBox cbox_anillos;
     private javax.swing.JCheckBox cbox_anillos1;
@@ -1196,7 +1275,9 @@ public class NASA extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1215,6 +1296,7 @@ public class NASA extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_modificar;
     private javax.swing.JTable jt_astro;
     private javax.swing.JTable jt_planetas;
+    private javax.swing.JLabel lbl_nave;
     private javax.swing.JPopupMenu pp_tablas;
     private javax.swing.JRadioButton rb_sonda;
     private javax.swing.JRadioButton rb_tripulada;

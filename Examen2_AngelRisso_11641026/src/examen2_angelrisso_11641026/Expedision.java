@@ -18,14 +18,16 @@ public class Expedision extends Thread {
     private boolean avanti = false;
     private float espera_ida;
     private float espera_vuelta;
+    Planeta p;
+    Nave n;
 
     public Expedision() {
     }
 
-    public Expedision(JLabel texto, float espera_ida, float espera_vuelta) {
+    public Expedision(JLabel texto, Planeta p,Nave n) {
         this.texto = texto;
-        this.espera_ida = espera_ida;
-        this.espera_vuelta = espera_vuelta;
+        this.p=p;
+        this.n=n;
         vive = true;
         avanti = true;
     }
@@ -54,31 +56,20 @@ public class Expedision extends Thread {
         this.avanti = avanti;
     }
 
-    public float getEspera_ida() {
-        return espera_ida;
-    }
-
-    public void setEspera_ida(float espera_ida) {
-        this.espera_ida = espera_ida;
-    }
-
-    public float getEspera_vuelta() {
-        return espera_vuelta;
-    }
-
-    public void setEspera_vuelta(float espera_vuelta) {
-        this.espera_vuelta = espera_vuelta;
-    }
+  
 
     @Override
     public void run() {
+        float dist=p.getDistancia();
+        float vel=n.getVelocidad();
+        
         try {
             texto.setText("viajando");
-            Thread.sleep((long) espera_ida);
+            Thread.sleep((long)(dist/vel)*1000);
             texto.setText("llego al planeta destino");
             Thread.sleep(800);
             texto.setText("regresando al la Tierra");
-            Thread.sleep((long)espera_vuelta);
+            Thread.sleep((long)(9.8/vel)*1000);
             texto.setText("ESTAMOS DE VUELTA");
         } catch (InterruptedException e) {
         }
